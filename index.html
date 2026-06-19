@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Corporate World – HR Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0d0f1a;
+    --surface:  #141826;
+    --card:     #1a1f30;
+    --border:   #242940;
+    --red:      #e03040;
+    --blue:     #2b3bcc;
+    --blue-lt:  #4a5ae8;
+    --white:    #f0f2ff;
+    --muted:    #7a7f99;
+    --text:     #c8ccde;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 60px;
+    background: rgba(13,15,26,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+  .nav-logo span { color: var(--red); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted);
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--red); color: #fff;
+    border: none; padding: 9px 22px;
+    border-radius: 4px; font-size: 0.82rem;
+    font-weight: 600; cursor: pointer;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: #c0222f; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 60px 80px;
+    position: relative; overflow: hidden;
+  }
+  /* signature geometric accent — mirrors the business card's diagonal blocks */
+  #hero::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 520px; height: 100%;
+    background: linear-gradient(135deg, transparent 40%, rgba(43,59,204,0.18) 40%, rgba(43,59,204,0.18) 65%, rgba(224,48,64,0.12) 65%);
+    pointer-events: none;
+  }
+  #hero::after {
+    content: '';
+    position: absolute; top: 10%; right: 80px;
+    width: 3px; height: 55%;
+    background: linear-gradient(to bottom, var(--red), var(--blue));
+    border-radius: 2px;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--red);
+    border: 1px solid rgba(224,48,64,0.35);
+    padding: 5px 14px; border-radius: 2px;
+    margin-bottom: 28px;
+  }
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.6rem, 5vw, 4.4rem);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.1;
+    max-width: 640px;
+    margin-bottom: 24px;
+  }
+  .hero-title em {
+    font-style: normal;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--blue-lt);
+  }
+  .hero-sub {
+    font-size: 1.05rem; font-weight: 300;
+    color: var(--text); max-width: 500px;
+    margin-bottom: 44px; line-height: 1.75;
+  }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--red); color: #fff;
+    padding: 14px 32px; border-radius: 4px;
+    font-weight: 600; font-size: 0.9rem;
+    text-decoration: none; letter-spacing: 0.04em;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: #c0222f; transform: translateY(-1px); }
+  .btn-outline {
+    border: 1px solid var(--border); color: var(--white);
+    padding: 14px 32px; border-radius: 4px;
+    font-weight: 500; font-size: 0.9rem;
+    text-decoration: none; letter-spacing: 0.04em;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .btn-outline:hover { border-color: var(--blue-lt); transform: translateY(-1px); }
+
+  .hero-stats {
+    display: flex; gap: 48px; margin-top: 64px;
+    padding-top: 40px; border-top: 1px solid var(--border);
+    max-width: 480px;
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem; font-weight: 800;
+    color: var(--white); line-height: 1;
+  }
+  .stat-num span { color: var(--red); }
+  .stat-label {
+    font-size: 0.78rem; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-top: 4px;
+  }
+
+  /* ── SECTIONS shared ── */
+  section { padding: 90px 60px; }
+  .section-label {
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 700; color: var(--white);
+    margin-bottom: 16px; line-height: 1.2;
+  }
+  .section-sub {
+    font-size: 0.95rem; color: var(--muted);
+    max-width: 560px; line-height: 1.7;
+    margin-bottom: 56px;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--surface); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: center; max-width: 1100px; margin: 0 auto;
+  }
+  .about-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+  .pill {
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--text); font-size: 0.78rem;
+    padding: 6px 14px; border-radius: 3px; font-weight: 500;
+  }
+  .about-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; padding: 32px;
+  }
+  .about-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    color: var(--white); margin-bottom: 8px;
+  }
+  .about-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+  .about-cards { display: flex; flex-direction: column; gap: 16px; }
+  .card-accent { border-left: 3px solid var(--red); }
+  .card-accent2 { border-left: 3px solid var(--blue-lt); }
+
+  /* ── SERVICES ── */
+  #services { background: var(--bg); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 20px; max-width: 1100px; margin: 0 auto;
+  }
+  .service-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 6px; padding: 32px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(to right, var(--red), var(--blue));
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .service-card:hover { border-color: var(--blue-lt); transform: translateY(-3px); }
+  .service-card:hover::before { opacity: 1; }
+  .service-icon {
+    font-size: 1.6rem; margin-bottom: 18px;
+  }
+  .service-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    color: var(--white); margin-bottom: 10px;
+  }
+  .service-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.7; }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+  .stag {
+    font-size: 0.7rem; color: var(--blue-lt);
+    background: rgba(74,90,232,0.1);
+    border: 1px solid rgba(74,90,232,0.25);
+    padding: 3px 9px; border-radius: 2px;
+  }
+
+  /* ── INDUSTRIES ── */
+  #industries { background: var(--surface); }
+  .industries-wrap { max-width: 1100px; margin: 0 auto; }
+  .ind-grid {
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+  }
+  .ind-item {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 4px; padding: 20px 14px;
+    text-align: center; font-size: 0.8rem;
+    font-weight: 500; color: var(--text);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .ind-item:hover { border-color: var(--red); color: var(--white); }
+  .ind-icon { font-size: 1.4rem; display: block; margin-bottom: 8px; }
+
+  /* ── WHY US ── */
+  #why { background: var(--bg); }
+  .why-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 20px; max-width: 1100px; margin: 0 auto;
+  }
+  .why-item {
+    padding: 28px; border: 1px solid var(--border);
+    border-radius: 6px; background: var(--card);
+  }
+  .why-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%; background: var(--red);
+    margin-bottom: 16px;
+  }
+  .why-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem; font-weight: 700;
+    color: var(--white); margin-bottom: 8px;
+  }
+  .why-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+  }
+  .contact-wrap {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: start;
+  }
+  .contact-item { display: flex; gap: 16px; margin-bottom: 28px; }
+  .contact-icon {
+    width: 40px; height: 40px;
+    background: rgba(224,48,64,0.1);
+    border: 1px solid rgba(224,48,64,0.25);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
+  .contact-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 3px; }
+  .contact-value { font-size: 0.95rem; color: var(--white); font-weight: 500; }
+  .contact-value a { color: var(--white); text-decoration: none; }
+  .contact-value a:hover { color: var(--red); }
+
+  /* contact form */
+  .cform { display: flex; flex-direction: column; gap: 14px; }
+  .cform input, .cform textarea, .cform select {
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--white); border-radius: 4px;
+    padding: 12px 16px; font-size: 0.88rem;
+    font-family: 'Inter', sans-serif;
+    outline: none; transition: border-color 0.2s;
+    resize: none;
+  }
+  .cform input::placeholder, .cform textarea::placeholder { color: var(--muted); }
+  .cform input:focus, .cform textarea:focus { border-color: var(--blue-lt); }
+  .cform textarea { height: 110px; }
+  .cform-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .submit-btn {
+    background: var(--red); color: #fff;
+    border: none; border-radius: 4px;
+    padding: 13px; font-size: 0.88rem;
+    font-weight: 600; cursor: pointer;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    transition: background 0.2s;
+  }
+  .submit-btn:hover { background: #c0222f; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg); border-top: 1px solid var(--border);
+    padding: 28px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem; font-weight: 700;
+    color: var(--white);
+  }
+  .footer-logo span { color: var(--red); }
+  footer p { font-size: 0.78rem; color: var(--muted); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 60px 24px; }
+    #hero { padding: 100px 24px 60px; }
+    .about-grid, .contact-wrap { grid-template-columns: 1fr; gap: 36px; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    .ind-grid { grid-template-columns: repeat(3, 1fr); }
+    footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
+  }
+  @media (max-width: 560px) {
+    .services-grid, .why-grid { grid-template-columns: 1fr; }
+    .ind-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-stats { gap: 28px; }
+    .cform-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">The <span>C</span>orporate <span>W</span>orld</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Get in Touch</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div>
+    <div class="hero-tag">13+ Years of HR Excellence</div>
+    <h1 class="hero-title">Building Teams That <em>Drive</em> Results</h1>
+    <p class="hero-sub">Pan-India workforce solutions — from sourcing top talent to managing payroll and HR compliance. We handle people, so you focus on growth.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#contact" class="btn-outline">Talk to Us</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">13<span>+</span></div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">6<span>+</span></div>
+        <div class="stat-label">Industries Served</div>
+      </div>
+      <div>
+        <div class="stat-num">Pan<span>-IN</span></div>
+        <div class="stat-label">Talent Reach</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="section-label">About Us</div>
+      <h2 class="section-title">Your Strategic HR Partner</h2>
+      <p style="font-size:0.95rem;color:var(--muted);line-height:1.75;margin-bottom:20px;">
+        The Corporate World is a professionally managed HR consultancy founded by <strong style="color:var(--white)">Sudhakar S</strong>, an HR professional with over 13 years of industry experience. We bridge the gap between employers and talented professionals across India.
+      </p>
+      <p style="font-size:0.95rem;color:var(--muted);line-height:1.75;">
+        From startups to large enterprises, we tailor our workforce solutions to align with your business goals — ensuring compliance, efficiency, and lasting impact.
+      </p>
+      <div class="about-pills">
+        <span class="pill">Recruitment</span>
+        <span class="pill">Payroll Management</span>
+        <span class="pill">Contract Staffing</span>
+        <span class="pill">HR Consulting</span>
+        <span class="pill">Training & Development</span>
+        <span class="pill">Campus Recruitment</span>
+      </div>
+    </div>
+    <div class="about-cards">
+      <div class="about-card card-accent">
+        <div class="about-card-title">Our Vision</div>
+        <p>To become India's most trusted HR consulting partner by delivering innovative workforce solutions that drive organizational success and career growth.</p>
+      </div>
+      <div class="about-card card-accent2">
+        <div class="about-card-title">Our Mission</div>
+        <p>Quality talent acquisition, strategic HR support, and long-term relationships built on trust — enabling organizations to grow through people-centric practices.</p>
+      </div>
+      <div class="about-card" style="border-left:3px solid var(--muted);">
+        <div class="about-card-title">For Job Seekers</div>
+        <p>Free career guidance, interview prep, and access to opportunities across multiple industries — we're in your corner from application to placement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-label">What We Do</div>
+    <h2 class="section-title">Comprehensive HR Solutions</h2>
+    <p class="section-sub">End-to-end workforce services — from finding the right candidate to managing their lifecycle within your organization.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🎯</div>
+        <div class="service-title">Permanent Recruitment</div>
+        <div class="service-desc">Entry to executive-level hiring across Sales, Finance, HR, IT, Operations, and Engineering functions. We source, screen, and deliver.</div>
+        <div class="service-tags">
+          <span class="stag">Entry-Level</span>
+          <span class="stag">Mid-Level</span>
+          <span class="stag">Leadership</span>
+          <span class="stag">Executive Search</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔄</div>
+        <div class="service-title">Contract Staffing</div>
+        <div class="service-desc">Flexible, project-based manpower with full compliance and payroll management — scale your workforce without long-term overhead.</div>
+        <div class="service-tags">
+          <span class="stag">Workforce Flexibility</span>
+          <span class="stag">Compliance</span>
+          <span class="stag">Cost Optimized</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💼</div>
+        <div class="service-title">Payroll Outsourcing</div>
+        <div class="service-desc">Complete payroll processing including salary, payslips, PF, ESI, professional tax, labour welfare fund, and full & final settlements.</div>
+        <div class="service-tags">
+          <span class="stag">PF & ESI</span>
+          <span class="stag">Payslips</span>
+          <span class="stag">Statutory Compliance</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <div class="service-title">HR Consulting</div>
+        <div class="service-desc">Strategic HR support — policy development, employee handbooks, performance management systems, org design, and compliance audits.</div>
+        <div class="service-tags">
+          <span class="stag">HR Audits</span>
+          <span class="stag">Policy Design</span>
+          <span class="stag">PMS</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎓</div>
+        <div class="service-title">Training & Development</div>
+        <div class="service-desc">Customised programs — soft skills, leadership, communication, sales, and HR professional development to build high-performing teams.</div>
+        <div class="service-tags">
+          <span class="stag">Soft Skills</span>
+          <span class="stag">Leadership</span>
+          <span class="stag">Sales Training</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏫</div>
+        <div class="service-title">Campus Recruitment</div>
+        <div class="service-desc">Connecting educational institutions with employers through campus drives, placement support, internship programs, and industry readiness.</div>
+        <div class="service-tags">
+          <span class="stag">Campus Drives</span>
+          <span class="stag">Internships</span>
+          <span class="stag">Placement Support</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section id="industries">
+  <div class="industries-wrap">
+    <div class="section-label">Sectors We Serve</div>
+    <h2 class="section-title">Industries We Work With</h2>
+    <p class="section-sub">Deep domain knowledge across key sectors means we deliver talent that fits — not just on paper, but in practice.</p>
+    <div class="ind-grid">
+      <div class="ind-item"><span class="ind-icon">🏦</span>Banking & BFSI</div>
+      <div class="ind-item"><span class="ind-icon">🏭</span>Manufacturing</div>
+      <div class="ind-item"><span class="ind-icon">💊</span>Pharmaceuticals</div>
+      <div class="ind-item"><span class="ind-icon">💻</span>Information Technology</div>
+      <div class="ind-item"><span class="ind-icon">🛒</span>Retail & E-Commerce</div>
+      <div class="ind-item"><span class="ind-icon">🏥</span>Healthcare</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-label">Why Choose Us</div>
+    <h2 class="section-title">The Difference We Bring</h2>
+    <p class="section-sub">Choosing an HR partner is a long-term decision. Here's what sets us apart.</p>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div class="why-title">Experienced Professionals</div>
+        <div class="why-desc">13+ years of hands-on HR expertise across industries, led by a seasoned Managing Director.</div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div class="why-title">Pan India Reach</div>
+        <div class="why-desc">A strong candidate database and talent acquisition network spanning the length and breadth of India.</div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div class="why-title">Quick Turnaround</div>
+        <div class="why-desc">Fast recruitment cycles with no compromise on candidate quality — we respect your hiring timelines.</div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div class="why-title">Cost-Effective</div>
+        <div class="why-desc">Competitive, transparent pricing that reduces your total cost-of-hire without cutting corners.</div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot" style="background:var(--blue-lt)"></div>
+        <div class="why-title">Dedicated Account Management</div>
+        <div class="why-desc">A single point of contact who knows your business, culture, and hiring preferences inside-out.</div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot" style="background:var(--blue-lt)"></div>
+        <div class="why-title">Ethical Practices</div>
+        <div class="why-desc">Transparent, honest recruitment — no shortcuts, no misrepresentation, no surprises.</div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot" style="background:var(--blue-lt)"></div>
+        <div class="why-title">Industry-Specific Expertise</div>
+        <div class="why-desc">Sector-specific recruitment knowledge that helps us understand exactly who you need and why.</div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot" style="background:var(--blue-lt)"></div>
+        <div class="why-title">Compliance First</div>
+        <div class="why-desc">Full statutory compliance across payroll, staffing, and HR operations — zero risk for your business.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div>
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Let's Talk Talent</h2>
+      <p style="font-size:0.92rem;color:var(--muted);line-height:1.75;margin-bottom:40px;">
+        Whether you're an employer looking to hire or a professional seeking your next opportunity — reach out and we'll get back to you promptly.
+      </p>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-value"><a href="tel:+919952187343">+91 99521 87343</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value"><a href="mailto:sudhakar.s@thecorporateworld.co.in">sudhakar.s@thecorporateworld.co.in</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Address</div>
+          <div class="contact-value" style="font-size:0.88rem;line-height:1.6;">
+            Innov8, Prestige Tech Platina, 11th Floor,<br>
+            No 32/2, 34/1, Outer Ring Road,<br>
+            Kadubisanahalli, Bangalore – 560087
+          </div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">👤</div>
+        <div>
+          <div class="contact-label">Contact Person</div>
+          <div class="contact-value">Sudhakar S — Managing Director</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="cform">
+        <div class="cform-row">
+          <input type="text" placeholder="Your Name" />
+          <input type="text" placeholder="Company / Organization" />
+        </div>
+        <input type="email" placeholder="Email Address" />
+        <input type="tel" placeholder="Phone Number" />
+        <select style="background:var(--card);border:1px solid var(--border);color:var(--muted);border-radius:4px;padding:12px 16px;font-size:0.88rem;font-family:'Inter',sans-serif;outline:none;">
+          <option value="" disabled selected>I'm interested in...</option>
+          <option>Permanent Recruitment</option>
+          <option>Contract Staffing</option>
+          <option>Payroll Outsourcing</option>
+          <option>HR Consulting</option>
+          <option>Training & Development</option>
+          <option>Campus Recruitment</option>
+          <option>Job Seeker Assistance</option>
+        </select>
+        <textarea placeholder="Tell us more about your requirement..."></textarea>
+        <button class="submit-btn">Send Enquiry →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">The <span>C</span>orporate <span>W</span>orld</div>
+  <p>© 2025 The Corporate World. All rights reserved.</p>
+  <p style="color:var(--muted);font-size:0.75rem;">HR Solutions · Pan India</p>
+</footer>
+
+</body>
+</html>
